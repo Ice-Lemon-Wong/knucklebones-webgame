@@ -1,0 +1,80 @@
+
+body {
+  font-size: 1em;
+  font-family: verdana;
+}
+h1 {
+  font-size: 40px;
+  padding-top: 20px ;
+  color: #333;
+}
+
+.gamegrid {
+  /* margin-right: 10%;
+  margin-left: 10%; */
+ /*  margin-top: 5%;
+  margin-bottom: 5%; */
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  grid-column-gap: 20px;
+  grid-row-gap: 10px;
+  justify-content: center;
+  align-items: center;
+  width: 280px;
+  height: 260px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.gamegrid.down {
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+.gamegrid.up {
+  margin-top: 2%;
+  margin-bottom: 5%;
+}
+
+.gamegridNumbers{
+  margin-bottom: 5%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-column-gap: 27%;
+  justify-content: center;
+  align-items: center;
+  width: 280px;
+  height: 30px;
+}
+
+.gamegridNumbers.down {
+  margin-top: 0%;
+  margin-bottom: 5%;
+}
+.gamegridNumbers.up {
+  margin-top: 5%;
+  margin-bottom: 0%;
+}
+
+.diceslot {
+  width: 75px;
+  height: 75px;
+  border-color: black;
+  border-radius:10px;
+  border-width: 4px;
+  border-style: solid;
+}
+
+.griddice {
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  text-transform: uppercase;
+  font-size: 60px;
+}
