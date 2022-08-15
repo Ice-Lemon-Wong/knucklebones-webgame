@@ -5,45 +5,57 @@ import { FaDiceOne, FaDiceTwo, FaDiceThree, FaDiceFour, FaDiceFive, FaDiceSix } 
 const DiceSlot = ({ onClick, diceValue, diceColour, location, interactable}) => {
   const [currentDiceValue, setCurrentDiceValue] = useState(null)
 
-  const getDiceAnimationClass = (value) => {
-    if (value === 1) {console.log('comparing: ' + value + ', ' + currentDiceValue) }
-    if (!value && currentDiceValue) return 'dicedisappear'
+  const getDiceAnimationClass = (show) => {
+     //{console.log('comparing: ' + value + ', ' + currentDiceValue) }
+   /*  if (!value && currentDiceValue) return 'dicedisappear'
     else if (value && !currentDiceValue) return 'diceappear'
-    else return ''
+    else return '' */
+    if (show) return 'diceappear'
+    else return 'dicedisappear'
   } 
+
+  const getDiceElement = (value, colour, animName) => {
+    switch (value) {
+      case 1: 
+        return <FaDiceOne className={`text-${colour} ${animName}`} />
+      case 2: 
+        return <FaDiceTwo className={`text-${colour} ${animName}`} />
+
+      case 3: 
+        return <FaDiceThree className={`text-${colour} ${animName}`} />
+
+      case 4: 
+        return <FaDiceFour className={`text-${colour} ${animName}`} />
+
+      case 5:
+        return <FaDiceFive className={`text-${colour} ${animName}`} />
+
+      case 6: 
+        return <FaDiceSix className={`text-${colour} ${animName}`} />
+
+      default: 
+        return null
+  
+    }
+  }
 
   const getDiceIcon = (value) => {
       
       let diceJSX= null
-      if (value === 1) {console.log( getDiceAnimationClass(diceValue)) }
-      switch (value) {
-          case 1: 
-            //diceJSX = <FaDiceOne className={`text-${diceColour} ${getDiceAnimationClass(diceValue)}`} />
-            diceJSX = <FaDiceOne className={`text-${diceColour} ${getDiceAnimationClass(diceValue)}`} />
-            break
-          case 2: 
-            diceJSX = <FaDiceTwo className={`text-${diceColour} ${getDiceAnimationClass(diceValue)}`} />
-            break
-          case 3: 
-            diceJSX =  <FaDiceThree className={`text-${diceColour} ${getDiceAnimationClass(diceValue)}`} />
-            break
-          case 4: 
-            diceJSX = <FaDiceFour className={`text-${diceColour} ${getDiceAnimationClass(diceValue)}`} />
-            break
-          case 5:
-            diceJSX =  <FaDiceFive className={`text-${diceColour} ${getDiceAnimationClass(diceValue)}`} />
-            break
-          case 6: 
-            diceJSX = <FaDiceSix className={`text-${diceColour} ${getDiceAnimationClass(diceValue)}`} />
-            break
-          default: 
-            diceJSX =  null
-            break
+      //let animName = getDiceAnimationClass(show);
+      //{console.log( animName, location) }
+      if (value) {
+        diceJSX = getDiceElement(value, diceColour, 'diceappear')
+      }
+      else {
+        diceJSX = getDiceElement(currentDiceValue, diceColour, 'dicedisappear')
       }
 
       if (value === undefined) value = null;
-      if (currentDiceValue !== value)setCurrentDiceValue(value);
-
+      if (currentDiceValue !== value){
+        setCurrentDiceValue(value);
+        console.log('setting dice value', value)
+      } 
       return diceJSX
   }
 

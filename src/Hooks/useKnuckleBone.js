@@ -25,8 +25,19 @@ const useKnuckleBone = () => {
 
     const initGame = () => {
         if (currentGameState === gameState.running) return
-        setCurrentGameState(gameState.running)
+        setPlayerDice(0)
+        setOpponentDice(0)
+        setPlayerGrid([...Array(9)])
+        setOpponentGrid([...Array(9)])
+
+        setPlayerScore([0,0,0])
+        setPlayerTotalScore(0)
+        setOpponentScore([0,0,0])
+        setOpponentTotalScore(0)
+
+        setTurn(0)
         setPlayerControl(true)
+        setCurrentGameState(gameState.running)
         setPhase(turnPhase.playerRoll)
     }
 
@@ -44,6 +55,7 @@ const useKnuckleBone = () => {
         upToDateCurrentPhase = phase
         switch (phase){
             case turnPhase.playerRoll:
+                setTurn(turn+1)
                 generateDice(true)
                 setNextPhase(turnPhase.playerInput)
                 break;
@@ -70,10 +82,13 @@ const useKnuckleBone = () => {
                 //calculateScore(isPlayerControl, checkDuplicateDice(isPlayerControl ? playerGrid : opponentGrid));
                 calculateScore(true, checkDuplicateDice(playerGrid));
                 calculateScore(false, checkDuplicateDice(opponentGrid));
-
+                
                 if (checkEndGame()){
-                    checkWhoWins()
-                    setNextPhase(turnPhase.none)
+                    setTimeout(() => {
+                        checkWhoWins()
+                        setNextPhase(turnPhase.none)
+                    },  1000)
+                    
                 } else {
                     (isPlayerControl) ? setNextPhase(turnPhase.opponentRoll) : setNextPhase(turnPhase.playerRoll)
                     setPlayerControl(!isPlayerControl)
@@ -117,7 +132,7 @@ const useKnuckleBone = () => {
         if (gridData[location]) return
         
         gridData[location] = {value: value, colour: duplicateColours[0]}
-
+        console.log('upodate grid', gridData)
         if (isPlayer){
             setPlayerGrid(gridData)
             setPlayerDice(null)
@@ -126,7 +141,7 @@ const useKnuckleBone = () => {
             setOpponentDice(null)
             setOpponentGrid(gridData)
         }
-        console.log('upodate grid', gridData)
+       
     }
 
     const formatGridToColumn =  (gridData) => {
@@ -245,11 +260,15 @@ const useKnuckleBone = () => {
         else setCurrentGameState(gameState.lose)
     }
 
+    const endGame = () => {
+       setCurrentGameState(gameState.unInitialized)
+    }
+
     return {
         placeDice,
-        generateDice,
         initGame,
         setPhaseExternal,
+        endGame,
         playerDice,
         opponentDice,
         playerGrid,
@@ -258,6 +277,7 @@ const useKnuckleBone = () => {
         opponentScore,
         playerTotalScore,
         opponentTotalScore,
+        currentPhase,
         nextPhase,
         turn,
         currentGameState
