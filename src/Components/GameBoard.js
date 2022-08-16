@@ -10,7 +10,7 @@ const GameBoard = ({isPlayer, generatedDice, placeDice, gridData, score, totalSc
           <div className=" w-25 align-items-center justify-content-end">
               <p className=" text-center">{isPlayer ? 'Player' : 'Opponent'} Dice:</p>
               <div className="d-flex justify-content-center ">
-                <DiceSlot diceValue={generatedDice} interactable={false} diceColour={'dark'}/>
+                <DiceSlot diceValue={generatedDice} interactable={false} diceColour={'dark'} canChangeBorder={false}/>
               </div>
           </div>
           <Grid className="justify-content-center align-items-center" score={score} isFacingUp={isPlayer} gridData={gridData} onSlotClick={(location) => {placeDice(isPlayer,generatedDice,location)}} interactable={isPlayer} />

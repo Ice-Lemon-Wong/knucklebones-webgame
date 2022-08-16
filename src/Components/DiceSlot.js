@@ -2,17 +2,10 @@ import React, { useState } from 'react'
 import { FaDiceOne, FaDiceTwo, FaDiceThree, FaDiceFour, FaDiceFive, FaDiceSix } from 'react-icons/fa'
 
 
-const DiceSlot = ({ onClick, diceValue, diceColour, location, interactable}) => {
+const DiceSlot = ({ onClick, diceValue, diceColour, location, interactable, canChangeBorder}) => {
   const [currentDiceValue, setCurrentDiceValue] = useState(null)
 
-  const getDiceAnimationClass = (show) => {
-     //{console.log('comparing: ' + value + ', ' + currentDiceValue) }
-   /*  if (!value && currentDiceValue) return 'dicedisappear'
-    else if (value && !currentDiceValue) return 'diceappear'
-    else return '' */
-    if (show) return 'diceappear'
-    else return 'dicedisappear'
-  } 
+
 
   const getDiceElement = (value, colour, animName) => {
     switch (value) {
@@ -54,13 +47,12 @@ const DiceSlot = ({ onClick, diceValue, diceColour, location, interactable}) => 
       if (value === undefined) value = null;
       if (currentDiceValue !== value){
         setCurrentDiceValue(value);
-        console.log('setting dice value', value)
       } 
       return diceJSX
   }
 
   return (
-    <div className="diceslot" onClick={() => {interactable && onClick(location)}} >
+    <div className={`diceslot ${(!diceValue && canChangeBorder) && 'empty'} ${(interactable) && 'interactable'}`} onClick={() => {interactable && onClick(location)}} >
         <div className={`griddice`}>{getDiceIcon(diceValue)}</div>
     </div>
   )

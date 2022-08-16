@@ -24,14 +24,14 @@ const ResultModal = ({ show, onClose, onPlayAgain, playerTotalScore, opponentTot
       } 
     }
 
-   
-
     return (
         
       <Modal show={show} onHide={onClose} size="md" aria-labelledby="contained-modal-title-vcenter" centered>
-
+      <Modal.Header className="justify-content-center">
+        <Modal.Title >Game Over</Modal.Title>
+      </Modal.Header>
       <Modal.Body>
-        <h4 className="text-center">Game Over</h4>
+        {/* <h4 className="text-center">Game Over</h4> */}
         <div className="d-flex justify-content-center align-items-end m-10">
           <h1 className="w-25 text-center">{playerTotalScore}</h1>
           <h5 className="w-10 text-center">vs</h5>
@@ -42,7 +42,7 @@ const ResultModal = ({ show, onClose, onPlayAgain, playerTotalScore, opponentTot
       </Modal.Body>
       <Modal.Footer className="justify-content-center mx-5">
         <Button className="col btn btn-block mx-3" onClick={onPlayAgain}>Play Again</Button>
-        <Button className="col btn btn-block mx-3" onClick={onClose}>Close</Button>
+        <Button className="col btn btn-block btn-danger mx-3" onClick={onClose}>Close</Button>
       </Modal.Footer>
     </Modal>
         )

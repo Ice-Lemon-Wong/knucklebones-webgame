@@ -19,7 +19,7 @@ const Grid = ({ isFacingUp, gridData, onSlotClick, interactable, score }) => {
 
   const displayGrid = () => {
     return gridData.map((data,i) => {
-      return <DiceSlot key={i} onClick={onSlotClick} diceValue={data ? data.value : null} diceColour={data ? data.colour : 'dark'} location={i} interactable={interactable}/>
+      return <DiceSlot key={i} onClick={onSlotClick} canChangeBorder={true} diceValue={data ? data.value : null} diceColour={data ? data.colour : 'dark'} location={i} interactable={interactable}/>
     })
   }
 

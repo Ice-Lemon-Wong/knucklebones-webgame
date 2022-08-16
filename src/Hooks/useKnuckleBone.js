@@ -22,6 +22,7 @@ const useKnuckleBone = () => {
 
     const [currentGameState, setCurrentGameState] = useState(gameState.unInitialized)
     const [turn, setTurn] = useState(0)
+    let upToDateTurn = turn
 
     const initGame = () => {
         if (currentGameState === gameState.running) return
@@ -36,6 +37,7 @@ const useKnuckleBone = () => {
         setOpponentTotalScore(0)
 
         setTurn(0)
+        upToDateTurn = 0
         setPlayerControl(true)
         setCurrentGameState(gameState.running)
         setPhase(turnPhase.playerRoll)
@@ -46,7 +48,7 @@ const useKnuckleBone = () => {
     }
 
     const setPhaseDelay = (phase, delayInSeconds) => {
-        setTimeout(() => setPhase(phase), delayInSeconds * 500)
+        setTimeout(() => setPhase(phase), delayInSeconds * 1000)
     }
 
     const setPhase = (phase) => {
@@ -55,7 +57,7 @@ const useKnuckleBone = () => {
         upToDateCurrentPhase = phase
         switch (phase){
             case turnPhase.playerRoll:
-                setTurn(turn+1)
+                setTurn(upToDateTurn+1)
                 generateDice(true)
                 setNextPhase(turnPhase.playerInput)
                 break;
@@ -78,7 +80,6 @@ const useKnuckleBone = () => {
                 setNextPhase(turnPhase.checkGameCondition)
                 break;
             case turnPhase.checkGameCondition:
-                console.log(typeof(calculateScore))
                 //calculateScore(isPlayerControl, checkDuplicateDice(isPlayerControl ? playerGrid : opponentGrid));
                 calculateScore(true, checkDuplicateDice(playerGrid));
                 calculateScore(false, checkDuplicateDice(opponentGrid));
@@ -132,7 +133,7 @@ const useKnuckleBone = () => {
         if (gridData[location]) return
         
         gridData[location] = {value: value, colour: duplicateColours[0]}
-        console.log('upodate grid', gridData)
+        //console.log('upodate grid', gridData)
         if (isPlayer){
             setPlayerGrid(gridData)
             setPlayerDice(null)
@@ -167,9 +168,9 @@ const useKnuckleBone = () => {
             for (let j = i; j < attackerGridData.length; j += 3 ) {
                if(attackerGridData[j]){
                 for (let k = i; k < victimGridData.length; k += 3){
-                    console.log('check to destroy dice',attackerGridData[j].value , (victimGridData[k] && victimGridData[k].value))
+                    
                     if (victimGridData[k] && victimGridData[k].value === attackerGridData[j].value){
-                        console.log('destroy dice proper')
+                        
                         victimGridData[k] = null
                     }
                 }                    
@@ -177,7 +178,6 @@ const useKnuckleBone = () => {
                }
             }
         }
-        console.log('upodate destroy grid', attackerGridData, victimGridData)
         setPlayerGrid((isPlayer) ? attackerGridData : victimGridData)
         setOpponentGrid((isPlayer) ? victimGridData : attackerGridData)
     }

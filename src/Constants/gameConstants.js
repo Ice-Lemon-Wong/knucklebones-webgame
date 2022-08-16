@@ -19,14 +19,14 @@ export const turnPhase = {
 }
 
 export const phaseDelay = new Map([
-    ['playerRoll', 1],
-    ['playerInput', 1],
+    ['playerRoll', 0.5],
+    ['playerInput', 0],
     ['playerEffect', 1],
-    ['checkGameCondition', 1],
-    ['opponentRoll', 1],
+    ['checkGameCondition', 0.5],
+    ['opponentRoll', 0.5],
     ['opponentInput', 1],
     ['opponentEffect', 1],
-    ['passTurn', 1],
+    ['passTurn', 0.5],
     ['none', 1],
 ])
 

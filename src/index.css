@@ -1,8 +1,9 @@
 
 body {
   font-size: 1em;
-  font-family: verdana;
+  font-family: 'Source Serif Pro', serif  !important;
 }
+
 h1 {
   font-size: 40px;
   padding-top: 20px ;
@@ -28,6 +29,7 @@ h1 {
   padding-left: 10%;
   padding-right: 10%;
 }
+
 
 .gamegrid.down {
   margin-top: 5%;
@@ -65,6 +67,15 @@ h1 {
   border-color: black;
   border-radius:10px;
   border-width: 4px;
+  border-style: solid;
+}
+
+.diceslot.empty{
+  border-style: dotted;
+}
+
+.diceslot.interactable.empty:hover{
+  background-color: hsl(40, 100%, 69%);
   border-style: solid;
 }
 
@@ -128,6 +139,20 @@ h1 {
   margin-top: 35vh;
   margin-bottom: 35vh;
 }
+
+.infodiv{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin-top: 20px;
+  margin-right: 40px;
+}
+
+.infoicon{
+  font-size: 30px;
+}
+
+
 
 @keyframes bounce {
   0% {

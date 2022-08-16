@@ -4,6 +4,8 @@ import GameBoard from './GameBoard.js'
 import useKnuckleBone from '../Hooks/useKnuckleBone.js'
 import { gameState, turnPhase } from '../Constants/gameConstants'
 import ResultModal from './ResultModal.js'
+import InfoModal from './InfoModal.js'
+import { FaInfoCircle } from 'react-icons/fa'
 
 const KnuckleboneGame = () => {
   const {
@@ -24,6 +26,8 @@ const KnuckleboneGame = () => {
     turn,
     currentGameState
   } =  useKnuckleBone()
+  
+  const [showInfo, setShowInfo] = useState(false)
 
   useEffect(() =>{
     //will remove later
@@ -44,10 +48,6 @@ const KnuckleboneGame = () => {
       endGame()
     }
   } 
-
-  useEffect(() =>{
-   console.log('results',currentGameState )
-  }, [currentGameState])
 
   const getPhaseText = () =>  {
     switch (currentPhase){
@@ -72,6 +72,10 @@ const KnuckleboneGame = () => {
 
   return (
     <>
+      <div className="infodiv">
+        <FaInfoCircle className="infoicon text-secondary" onClick={() => {setShowInfo(true)}}/>
+      </div>
+      
       { currentGameState !== gameState.unInitialized && (
         <div className="container">
         {/* <h1  className="text-center">Knuckke Bones</h1> */}
@@ -108,6 +112,8 @@ const KnuckleboneGame = () => {
             opponentTotalScore={opponentTotalScore}
             result={currentGameState}/>
       }
+
+      <InfoModal show={showInfo} onClose={() => {setShowInfo(false)}} />
 
       </>
   )
