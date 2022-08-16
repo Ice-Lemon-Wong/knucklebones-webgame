@@ -13,6 +13,8 @@ const useKnuckleBone = () => {
     const [playerTotalScore, setPlayerTotalScore] = useState(0)
     const [opponentScore, setOpponentScore] = useState([0,0,0])
     const [opponentTotalScore, setOpponentTotalScore] = useState(0)
+    let uptoDatePlayerTotalScore = playerTotalScore
+    let uptoDateOpponentTotalScore = opponentTotalScore
 
     //  phase Data
     const [currentPhase, setCurrentPhase] = useState(turnPhase.none)
@@ -237,7 +239,14 @@ const useKnuckleBone = () => {
         }) */
 
         (isPlayer) ? setPlayerScore(scoreArray) : setOpponentScore(scoreArray);
-        (isPlayer) ? setPlayerTotalScore(calculateTotalScore(scoreArray)) : setOpponentTotalScore(calculateTotalScore(scoreArray));
+        if (isPlayer) {
+            let uptoDatePlayerTotalScore = calculateTotalScore(scoreArray)
+            setPlayerTotalScore(uptoDatePlayerTotalScore)
+        } else{
+            let uptoDateOpponentTotalScore = calculateTotalScore(scoreArray)
+            setOpponentTotalScore(uptoDateOpponentTotalScore)
+        }
+          
     }
 
     const calculateTotalScore = (scoreArray) =>{
@@ -255,8 +264,8 @@ const useKnuckleBone = () => {
     }
 
     const checkWhoWins = () => {
-        if (playerTotalScore === opponentTotalScore) setCurrentGameState(gameState.tied)
-        else if (playerTotalScore > opponentTotalScore) setCurrentGameState(gameState.win)
+        if (uptoDatePlayerTotalScore === uptoDateOpponentTotalScore) setCurrentGameState(gameState.tied)
+        else if (uptoDatePlayerTotalScore > uptoDateOpponentTotalScore) setCurrentGameState(gameState.win)
         else setCurrentGameState(gameState.lose)
     }
 
